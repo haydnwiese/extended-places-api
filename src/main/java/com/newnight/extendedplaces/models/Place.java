@@ -1,10 +1,15 @@
 package com.newnight.extendedplaces.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "places")
-public class Place {
+public class Place implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -13,31 +18,34 @@ public class Place {
     private String name;
     @Enumerated(EnumType.STRING)
     private VenueSize size;
-    @Column(name = "music_genre")
-    @Enumerated(EnumType.STRING)
-    private MusicGenre musicGenre;
     @Column(name = "dress_code")
     @Enumerated(EnumType.STRING)
     private DressCode dressCode;
 
+    @OneToMany(mappedBy = "place")
+    private List<PlaceMusicGenre> musicGenres;
+
     public Place() {
     }
 
-    public Place(String googleId, String name, VenueSize size, MusicGenre musicGenre, DressCode dressCode) {
+    public Place(String googleId, String name, VenueSize size, DressCode dressCode, List<PlaceMusicGenre> musicGenres) {
         this.googleId = googleId;
         this.name = name;
         this.size = size;
-        this.musicGenre = musicGenre;
         this.dressCode = dressCode;
+        this.musicGenres = musicGenres;
     }
 
-    public Place(int id, String googleId, String name, VenueSize size, MusicGenre musicGenre, DressCode dressCode) {
+    public Place(int id, String googleId, String name, VenueSize size, DressCode dressCode) {
         this.id  = id;
         this.googleId = googleId;
         this.name = name;
         this.size = size;
-        this.musicGenre = musicGenre;
         this.dressCode = dressCode;
+    }
+
+    public List<PlaceMusicGenre> getMusicGenres() {
+        return musicGenres;
     }
 
     public int getId() {
@@ -72,14 +80,6 @@ public class Place {
         this.size = size;
     }
 
-    public MusicGenre getMusicGenre() {
-        return musicGenre;
-    }
-
-    public void setMusicGenre(MusicGenre musicGenre) {
-        this.musicGenre = musicGenre;
-    }
-
     public DressCode getDressCode() {
         return dressCode;
     }
@@ -95,7 +95,6 @@ public class Place {
                 ", googleId='" + googleId + '\'' +
                 ", name='" + name + '\'' +
                 ", size=" + size +
-                ", musicGenre=" + musicGenre +
                 ", dressCode=" + dressCode +
                 '}';
     }
