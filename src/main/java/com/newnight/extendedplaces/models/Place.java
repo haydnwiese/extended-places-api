@@ -36,16 +36,13 @@ public class Place implements Serializable {
         this.musicGenres = musicGenres;
     }
 
-    public Place(int id, String googleId, String name, VenueSize size, DressCode dressCode) {
+    public Place(int id, String googleId, String name, VenueSize size, DressCode dressCode, List<PlaceMusicGenre> musicGenres) {
         this.id  = id;
         this.googleId = googleId;
         this.name = name;
         this.size = size;
         this.dressCode = dressCode;
-    }
-
-    public List<PlaceMusicGenre> getMusicGenres() {
-        return musicGenres;
+        this.musicGenres = musicGenres;
     }
 
     public int getId() {
@@ -88,14 +85,11 @@ public class Place implements Serializable {
         this.dressCode = dressCode;
     }
 
-    @Override
-    public String toString() {
-        return "Place{" +
-                "id=" + id +
-                ", googleId='" + googleId + '\'' +
-                ", name='" + name + '\'' +
-                ", size=" + size +
-                ", dressCode=" + dressCode +
-                '}';
+    public List<PlaceMusicGenre> getMusicGenres() {
+        return musicGenres;
+    }
+
+    public void setMusicGenres(List<PlaceMusicGenre> musicGenres) {
+        this.musicGenres = musicGenres;
     }
 }
