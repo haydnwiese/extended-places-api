@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PlaceMusicGenreRepository extends JpaRepository<PlaceMusicGenre, Integer> {
-
+    List<PlaceMusicGenre> findAllByPlaceId(String placeId);
 }
