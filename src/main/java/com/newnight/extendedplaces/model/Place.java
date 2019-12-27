@@ -8,8 +8,6 @@ import java.util.List;
 @Table(name = "places")
 public class Place implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
     @Column(name = "google_id")
     private String googleId;
     private String name;
@@ -31,23 +29,6 @@ public class Place implements Serializable {
         this.size = size;
         this.dressCode = dressCode;
         this.musicGenres = musicGenres;
-    }
-
-    public Place(int id, String googleId, String name, VenueSize size, DressCode dressCode, List<PlaceMusicGenre> musicGenres) {
-        this.id  = id;
-        this.googleId = googleId;
-        this.name = name;
-        this.size = size;
-        this.dressCode = dressCode;
-        this.musicGenres = musicGenres;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getGoogleId() {

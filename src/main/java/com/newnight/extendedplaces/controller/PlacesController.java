@@ -43,6 +43,17 @@ public class PlacesController {
         return placesRepository.save(body);
     }
 
+    @PutMapping("/places/{id}")
+    public boolean updatePlace(@PathVariable String id, @RequestBody Place body) {
+        Place placeToUpdate = placesRepository.findFirstByGoogleId(id);
+        placeToUpdate.setName(body.getName());
+        placeToUpdate.setSize(body.getSize());
+        placeToUpdate.setDressCode(body.getDressCode());
+        placesRepository.save(placeToUpdate);
+        // TODO: Figure out how to update music genres as well
+        return true;
+    }
+
     @DeleteMapping("/places/{id}")
     public boolean deletePlace(@PathVariable String id) {
         //id refers to the google id of the place record
