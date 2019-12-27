@@ -1,4 +1,4 @@
-package com.newnight.extendedplaces.models;
+package com.newnight.extendedplaces.model;
 
 public enum MusicGenre {
     hipHop,

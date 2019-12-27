@@ -1,7 +1,4 @@
-package com.newnight.extendedplaces.models;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+package com.newnight.extendedplaces.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,8 +1,8 @@
-package com.newnight.extendedplaces.controllers;
+package com.newnight.extendedplaces.controller;
 
-import com.newnight.extendedplaces.models.*;
-import com.newnight.extendedplaces.repositories.PlaceMusicGenreRepository;
-import com.newnight.extendedplaces.repositories.PlacesRepository;
+import com.newnight.extendedplaces.model.*;
+import com.newnight.extendedplaces.dao.PlaceMusicGenreRepository;
+import com.newnight.extendedplaces.dao.PlacesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +22,11 @@ public class PlacesController {
         return placesRepository.findAll();
     }
 
+    @GetMapping("/places/{id}")
+    public Place fetchPlace(String id) {
+        return placesRepository.findFirstByGoogleId(id);
+    }
+
     @GetMapping("/places-filtered")
     public List<Place> filteredPlaces(@RequestParam VenueSize size,
                                       @RequestParam(name = "dress_code") DressCode dressCode,
@@ -29,12 +34,20 @@ public class PlacesController {
         return placesRepository.findBySizeAndDressCodeAndMusicGenres(size, dressCode, musicGenre);
     }
 
-    @PostMapping("/place")
+    @PostMapping("/places")
     public Place createPlace(@RequestBody Place body) {
         for (PlaceMusicGenre musicGenre : body.getMusicGenres()) {
             musicGenre.setPlaceId(body.getGoogleId());
             placeMusicGenreRepository.save(musicGenre);
         }
         return placesRepository.save(body);
+    }
+
+    @DeleteMapping("/places/{id}")
+    public boolean deletePlace(@PathVariable String id) {
+        //id refers to the google id of the place record
+        long deletedAmount = placesRepository.deleteByGoogleId(id);
+        placeMusicGenreRepository.deleteByPlaceId(id);
+        return deletedAmount > 0;
     }
 }

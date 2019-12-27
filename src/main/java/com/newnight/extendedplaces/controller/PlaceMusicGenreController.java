@@ -1,7 +1,7 @@
-package com.newnight.extendedplaces.controllers;
+package com.newnight.extendedplaces.controller;
 
-import com.newnight.extendedplaces.models.PlaceMusicGenre;
-import com.newnight.extendedplaces.repositories.PlaceMusicGenreRepository;
+import com.newnight.extendedplaces.model.PlaceMusicGenre;
+import com.newnight.extendedplaces.dao.PlaceMusicGenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
